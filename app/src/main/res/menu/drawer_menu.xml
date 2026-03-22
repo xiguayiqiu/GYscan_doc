@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/nav_security_basics"
+            android:icon="@drawable/ic_security"
+            android:title="网络安全基础" />
+        <item
+            android:id="@+id/nav_security_overview"
+            android:icon="@drawable/ic_security"
+            android:title="网络安全概要" />
+        <item
+            android:id="@+id/nav_security_advanced"
+            android:icon="@drawable/ic_security"
+            android:title="网络安全高级技巧" />
+        <item
+            android:id="@+id/nav_linux_commands"
+            android:icon="@drawable/ic_terminal"
+            android:title="Linux自带命令手册" />
+        <item
+            android:id="@+id/nav_windows_commands"
+            android:icon="@drawable/ic_windows"
+            android:title="Windows命令手册" />
+        <item
+            android:id="@+id/nav_linux_tools"
+            android:icon="@drawable/ic_tools"
+            android:title="Linux常用网安工具命令手册" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info"
+            android:title="关于" />
+    </group>
+</menu>

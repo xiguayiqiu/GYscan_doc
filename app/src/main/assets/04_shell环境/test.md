@@ -1,0 +1,56 @@
+# test - 测试文件类型和值
+
+## 1. 命令简介
+test 命令用于测试文件类型和值，是 Linux 系统中常用的 shell 环境命令之一。
+
+## 2. 命令语法
+```bash
+test [表达式]
+```
+
+## 3. 常用测试选项
+| 选项 | 说明 |
+|------|------|
+| -f | 文件存在且为普通文件 |
+| -d | 文件存在且为目录 |
+| -e | 文件存在 |
+| -r | 文件存在且可读 |
+| -w | 文件存在且可写 |
+| -x | 文件存在且可执行 |
+| -z | 字符串长度为0 |
+| -n | 字符串长度不为0 |
+| STRING1 = STRING2 | 字符串相等 |
+| STRING1 != STRING2 | 字符串不相等 |
+| NUM1 -eq NUM2 | 数字相等 |
+| NUM1 -ne NUM2 | 数字不相等 |
+| NUM1 -lt NUM2 | 数字小于 |
+| NUM1 -le NUM2 | 数字小于等于 |
+| NUM1 -gt NUM2 | 数字大于 |
+| NUM1 -ge NUM2 | 数字大于等于 |
+
+## 4. 实战示例
+
+### 4.1 测试文件是否存在
+```bash
+test -e file.txt && echo "File exists"
+```
+
+### 4.2 测试文件是否为目录
+```bash
+test -d directory && echo "Directory exists"
+```
+
+### 4.3 测试字符串是否相等
+```bash
+test "$VAR" = "value" && echo "Strings are equal"
+```
+
+### 4.4 测试数字是否大于
+```bash
+test 10 -gt 5 && echo "10 is greater than 5"
+```
+
+## 5. 注意事项
+- test 命令用于测试文件类型和值，在 shell 脚本中常用于条件判断
+- test 命令也可以用 [ ] 表示，如 [ -e file.txt ]
+- test 命令是一个常用的 shell 工具，用于条件测试

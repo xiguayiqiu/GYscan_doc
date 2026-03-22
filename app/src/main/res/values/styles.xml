@@ -1,0 +1,8 @@
+<resources>
+    <style name="GreenButton" parent="Widget.Material3.Button">
+        <item name="android:backgroundTint">@color/btn_green</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:elevation">12dp</item>
+        <item name="android:stateListAnimator">@animator/btn_scale_animator</item>
+    </style>
+</resources>

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">弈安录</string>
+    <string name="navigation_drawer_open">打开导航菜单</string>
+    <string name="navigation_drawer_close">关闭导航菜单</string>
+    <string name="search_hint">搜索命令分类…</string>
+    <string name="search_command_hint">搜索命令…</string>
+    
+    <!-- Page Activity Strings -->
+    <string name="windows_commands_title">Windows命令手册</string>
+    <string name="windows_commands_description">Windows命令手册收录了Windows系统常用的命令行工具，包括CMD和PowerShell命令。这些命令在系统管理、网络配置、故障排查等方面发挥着重要作用，是Windows环境下必备的技能。</string>
+    <string name="windows_commands_points">• CMD基础命令\n• PowerShell脚本\n• 网络配置命令\n• 系统管理工具\n• 日志分析命令</string>
+    <string name="linux_tools_title">Linux常用网安工具命令手册</string>
+    <string name="linux_tools_description">Linux平台拥有众多强大的网络安全工具，本手册介绍了常用的网安工具及其命令使用方法。包括Nmap、Wireshark、Metasploit、Burp Suite等知名工具，帮助您掌握网络安全工具的使用技巧。</string>
+    <string name="linux_tools_points">• 端口扫描工具\n• 流量分析工具\n• 漏洞利用框架\n• Web应用测试工具\n• 密码破解工具</string>
+
+</resources>

@@ -1,0 +1,48 @@
+[versions]
+# 保持你原有的版本
+agp = "9.1.0"
+cardview = "1.0.0"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+activity = "1.9.3"
+constraintlayout = "2.2.0"
+materialVersion = "1.9.0"
+
+# 【新增】Kotlin 和 Compose 版本（和 AGP 9.1.0 完美兼容）
+kotlin = "2.0.0"
+compose-compiler = "1.5.14"
+compose-bom = "2024.06.00"
+# 【修改】直接用 JitPack 远程版本，不用本地文件了
+composeMarkdown = "0.5.0" # 这是 compose-markdown 的最新稳定版
+
+[libraries]
+# 保持原有库
+cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+material-v190 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+
+# 【修改】远程依赖 compose-markdown（JitPack）
+compose-markdown = { module = "com.github.jeziellago:compose-markdown", version.ref = "composeMarkdown" }
+
+# 【新增】Compose 核心库
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+# 【新增】Kotlin 插件定义
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

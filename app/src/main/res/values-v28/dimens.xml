@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Status bar padding for devices with cutout (Android 9.0+) -->
+    <dimen name="status_bar_padding">@dimen/status_bar_height</dimen>
+</resources>

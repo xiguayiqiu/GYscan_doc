@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Status bar padding for different screen types -->
+    <dimen name="status_bar_padding">0dp</dimen>
+    <!-- Status bar height -->
+    <dimen name="status_bar_height">24dp</dimen>
+</resources>

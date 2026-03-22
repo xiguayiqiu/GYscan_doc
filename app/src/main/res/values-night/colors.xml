@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="btn_green">#4CAF50</color>
+    <color name="theme_blue">#0D47A1</color>
+    <color name="theme_dark_blue">#0A3D91</color>
+    <color name="hint_text">#B0B0B0</color>
+    
+    <!-- Dark theme specific colors -->
+    <color name="dark_background">#121212</color>
+    <color name="dark_surface">#1E1E1E</color>
+    <color name="dark_card">#2D2D2D</color>
+    <color name="dark_card_background">#2D2D2D</color>
+    <color name="dark_text_primary">#E0E0E0</color>
+    <color name="dark_text_secondary">#B0B0B0</color>
+    <color name="dark_border">#404040</color>
+</resources>
