@@ -9,13 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 public class AboutActivity extends AppCompatActivity {
+
+    private int clickCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,24 @@ public class AboutActivity extends AppCompatActivity {
         setupToolbar();
         setupLinks();
         setupSystemInfo();
+        setupAppLogoClick();
+    }
+
+    private void setupAppLogoClick() {
+        ImageView appLogo = findViewById(R.id.appLogo);
+        appLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickCount++;
+                if (clickCount == 3) {
+                    Toast.makeText(AboutActivity.this, "你在干嘛～哎哟～～", Toast.LENGTH_SHORT).show();
+                } else if (clickCount == 7) {
+                    Intent intent = new Intent(AboutActivity.this, EasterEggActivity.class);
+                    startActivity(intent);
+                    clickCount = 0; // 重置计数
+                }
+            }
+        });
     }
 
     private void setupToolbar() {
@@ -63,6 +85,14 @@ public class AboutActivity extends AppCompatActivity {
                 backButton.setColorFilter(android.graphics.Color.WHITE, android.graphics.PorterDuff.Mode.SRC_ATOP);
                 break;
             }
+        }
+        
+        // 设置版本号
+        TextView appVersion = findViewById(R.id.appVersion);
+        if (appVersion != null) {
+            String version = getString(R.string.app_version);
+            String versionText = getString(R.string.app_version_text, version);
+            appVersion.setText(versionText);
         }
     }
 

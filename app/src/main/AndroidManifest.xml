@@ -30,6 +30,12 @@
             android:name=".Security.SecurityBasicsActivity"
             android:exported="false" />
         <activity
+            android:name=".Security.SecurityBasicsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Security.SecurityBasicsDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".Linux.LinuxCommandsActivity"
             android:exported="false" />
         <activity
@@ -40,6 +46,18 @@
             android:exported="false" />
         <activity
             android:name=".Linux.CommandDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CyberSecurity.CyberSecurityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CyberSecurity.CyberSecurityListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CyberSecurity.SecurityPackageCommandsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CyberSecurity.SecurityCommandDetailActivity"
             android:exported="false" />
         <activity
             android:name=".Windows.WindowsCommandsActivity"
@@ -55,6 +73,12 @@
             android:exported="false" />
         <activity
             android:name=".AboutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EasterEggActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TermsActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

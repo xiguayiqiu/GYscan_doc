@@ -12,5 +12,9 @@
     <string name="linux_tools_title">Linux常用网安工具命令手册</string>
     <string name="linux_tools_description">Linux平台拥有众多强大的网络安全工具，本手册介绍了常用的网安工具及其命令使用方法。包括Nmap、Wireshark、Metasploit、Burp Suite等知名工具，帮助您掌握网络安全工具的使用技巧。</string>
     <string name="linux_tools_points">• 端口扫描工具\n• 流量分析工具\n• 漏洞利用框架\n• Web应用测试工具\n• 密码破解工具</string>
+    
+    <!-- Version Info -->
+    <string name="app_version">1.0.0</string>
+    <string name="app_version_text">版本 %s</string>
 
 </resources>

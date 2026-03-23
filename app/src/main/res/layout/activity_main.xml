@@ -144,7 +144,7 @@
         android:id="@+id/versionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="版本 1.0.0"
+        android:text="@string/app_version_text"
         android:textSize="12sp"
         android:textColor="#B0B0B0"
         android:layout_marginBottom="16dp"

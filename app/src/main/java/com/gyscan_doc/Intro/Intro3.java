@@ -45,6 +45,7 @@ public class Intro3 extends AppCompatActivity {
         setupAnimations();
         setupGestureDetector();
         setupStartButton();
+        setupVersionText();
     }
 
     private void setupAnimations() {
@@ -182,6 +183,15 @@ public class Intro3 extends AppCompatActivity {
                 startMainActivity();
             }
         });
+    }
+    
+    private void setupVersionText() {
+        TextView versionText = findViewById(R.id.versionText3);
+        if (versionText != null) {
+            String version = getString(R.string.app_version);
+            String versionTextStr = getString(R.string.app_version_text, version);
+            versionText.setText(versionTextStr);
+        }
     }
 
 

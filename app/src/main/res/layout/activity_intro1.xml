@@ -131,6 +131,19 @@
         app:cornerRadius="28dp" />
 
     <TextView
+        android:id="@+id/versionText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_version_text"
+        android:textSize="12sp"
+        android:textColor="#B0B0B0"
+        android:layout_marginBottom="8dp"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/pageIndicator1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/pageIndicator1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

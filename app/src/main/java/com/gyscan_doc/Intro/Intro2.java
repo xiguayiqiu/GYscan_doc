@@ -41,6 +41,7 @@ public class Intro2 extends AppCompatActivity {
         setupAnimations();
         setupGestureDetector();
         setupSwipeButton();
+        setupVersionText();
     }
 
     private void setupAnimations() {
@@ -144,6 +145,15 @@ public class Intro2 extends AppCompatActivity {
                 swipeLeft();
             }
         });
+    }
+    
+    private void setupVersionText() {
+        TextView versionText = findViewById(R.id.versionText2);
+        if (versionText != null) {
+            String version = getString(R.string.app_version);
+            String versionTextStr = getString(R.string.app_version_text, version);
+            versionText.setText(versionTextStr);
+        }
     }
 
     private void setupGestureDetector() {

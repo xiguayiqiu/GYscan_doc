@@ -4,4 +4,6 @@
     <dimen name="status_bar_padding">0dp</dimen>
     <!-- Status bar height -->
     <dimen name="status_bar_height">24dp</dimen>
+    <!-- Toolbar padding for different screen types -->
+    <dimen name="toolbar_padding_top">0dp</dimen>
 </resources>

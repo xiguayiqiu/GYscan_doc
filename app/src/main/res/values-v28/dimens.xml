@@ -2,4 +2,6 @@
 <resources>
     <!-- Status bar padding for devices with cutout (Android 9.0+) -->
     <dimen name="status_bar_padding">@dimen/status_bar_height</dimen>
+    <!-- Toolbar padding for devices with cutout (Android 9.0+) -->
+    <dimen name="toolbar_padding_top">@dimen/status_bar_height</dimen>
 </resources>

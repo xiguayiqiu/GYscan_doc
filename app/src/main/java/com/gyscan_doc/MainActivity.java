@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,11 +28,13 @@ import com.gyscan_doc.Home.Page;
 import com.gyscan_doc.Intro.Intro1;
 import com.gyscan_doc.Linux.LinuxCommandsActivity;
 import com.gyscan_doc.Security.SecurityBasicsActivity;
+import com.gyscan_doc.CyberSecurity.CyberSecurityActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String PREFS_NAME = "IntroPrefs";
     private static final String KEY_INTRO_SHOWN = "intro_shown";
+    private static final String KEY_TERMS_ACCEPTED = "terms_accepted";
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private View menuButton;
@@ -40,6 +43,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // 检查用户是否已经接受了协议
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean termsAccepted = prefs.getBoolean(KEY_TERMS_ACCEPTED, false);
+        
+        if (!termsAccepted) {
+            // 如果没有接受协议，启动TermsActivity
+            Intent intent = new Intent(MainActivity.this, TermsActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+        
         setContentView(R.layout.activity_main);
 
         // 设置状态栏颜色
@@ -64,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         setupToolbar();
         setupDrawer();
         setupStartButton();
+        setupVersionText();
         
         if (getIntent().getBooleanExtra("open_drawer", false)) {
             drawerLayout.postDelayed(new Runnable() {
@@ -181,6 +198,9 @@ public class MainActivity extends AppCompatActivity {
         } else if (itemId == R.id.nav_linux_commands) {
             Intent intent = new Intent(MainActivity.this, LinuxCommandsActivity.class);
             startActivity(intent);
+        } else if (itemId == R.id.nav_linux_tools) {
+            Intent intent = new Intent(MainActivity.this, CyberSecurityActivity.class);
+            startActivity(intent);
         } else if (itemId == R.id.nav_about) {
             Intent intent = new Intent(MainActivity.this, AboutActivity.class);
             startActivity(intent);
@@ -234,6 +254,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    
     private void setupStartButton() {
         Button startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -250,5 +272,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    
+    private void setupVersionText() {
+        TextView versionText = findViewById(R.id.versionText);
+        if (versionText != null) {
+            String version = getString(R.string.app_version);
+            String versionTextStr = getString(R.string.app_version_text, version);
+            versionText.setText(versionTextStr);
+        }
     }
 }

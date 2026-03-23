@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="16dp"
+        android:background="@color/dark_card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="用户协议与隐私政策"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/dark_text_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/buttonLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/termsTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="应用使用协议"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_text_primary" />
+
+                    <TextView
+                        android:id="@+id/termsContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:text="欢迎使用本应用。本协议是您与本应用之间关于使用本应用的法律协议。请您务必审慎阅读、充分理解本协议各条款内容，特别是免除或者限制责任的条款、法律适用和争议解决条款。如您对本协议有任何疑问，可向本应用客服咨询。\n\n1. 您在使用本应用前，应当仔细阅读并理解本协议，您的使用行为将视为对本协议的接受。\n2. 本应用保留在必要时修改本协议的权利，修改后的协议将在应用内公示。\n3. 您应当遵守法律法规，不得利用本应用从事违法违规活动。\n4. 本应用不对因网络故障、系统故障等原因导致的服务中断或数据丢失承担责任。\n5. 本协议的订立、执行、解释及争议的解决均适用中华人民共和国法律。"
+                        android:textColor="@color/dark_text_secondary" />
+
+                    <TextView
+                        android:id="@+id/privacyTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="隐私政策"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_text_primary" />
+
+                    <TextView
+                        android:id="@+id/privacyContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="本应用重视用户隐私保护，我们将按照法律法规要求，保护您的个人信息安全。\n\n1. 我们收集的信息：\n   - 设备信息：设备型号、操作系统版本等\n   - 使用信息：应用使用频率、功能使用情况等\n   - 您主动提供的信息：如反馈信息等\n\n2. 我们如何使用信息：\n   - 在关于部分做系统检测给你看，你现在设备的情况\n   - 解决问题和提供支持\n\n3. 数据存储与传输：\n   - 所有数据均存储在本地设备上，不会上传到云端\n   - 本应用是一个纯本地应用，没有网络上传功能\n\n4. 我们如何保护信息：\n   - 采用加密技术保护数据\n   - 限制访问权限\n   - 定期安全审计\n\n5. 您的权利：\n   - 访问、修改、删除您的个人信息\n   - 撤回同意\n   - 注销账户\n\n6. 本隐私政策的变更：我们可能会根据法律法规要求或业务需要更新本隐私政策。"
+                        android:textColor="@color/dark_text_secondary" />
+                </LinearLayout>
+            </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/buttonLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <Button
+                    android:id="@+id/btnReject"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:text="拒绝"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/red" />
+
+                <Button
+                    android:id="@+id/btnAccept"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="同意"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/dark_theme_blue" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
