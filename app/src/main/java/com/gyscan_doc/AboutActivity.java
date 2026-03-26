@@ -99,6 +99,7 @@ public class AboutActivity extends AppCompatActivity {
     private void setupLinks() {
         TextView githubLink = findViewById(R.id.githubLink);
         TextView giteeLink = findViewById(R.id.giteeLink);
+        TextView websiteLink = findViewById(R.id.websiteLink);
         
         githubLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,59 +114,16 @@ public class AboutActivity extends AppCompatActivity {
                 openUrl("https://gitee.com/bzhanyiqiua/GYscan");
             }
         });
+        
+        websiteLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUrl("https://gyscan.space");
+            }
+        });
     }
 
     private void setupSystemInfo() {
-        // 获取设备制造商
-        String manufacturer = android.os.Build.MANUFACTURER;
-        // 获取设备型号
-        String model = android.os.Build.MODEL;
-        // 获取屏幕分辨率
-        android.util.DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int width = displayMetrics.widthPixels;
-        int height = displayMetrics.heightPixels;
-        String resolution = width + "x" + height;
-        
-        // 查找对应的TextView并设置文本
-        // 注意：这里需要根据布局文件中的实际ID来设置
-        // 由于布局文件中没有为系统信息部分的TextView设置ID，我们需要遍历查找
-        // 或者修改布局文件添加ID
-        // 这里我们采用遍历LinearLayout的方式来查找
-        LinearLayout systemInfoLayout = findViewById(R.id.systemInfoLayout);
-        if (systemInfoLayout != null) {
-            for (int i = 0; i < systemInfoLayout.getChildCount(); i++) {
-                View child = systemInfoLayout.getChildAt(i);
-                if (child instanceof LinearLayout) {
-                    LinearLayout row = (LinearLayout) child;
-                    if (row.getChildCount() == 2) {
-                        TextView label = (TextView) row.getChildAt(0);
-                        TextView value = (TextView) row.getChildAt(1);
-                        if (label != null && value != null) {
-                            if (label.getText().toString().contains("设备制造商")) {
-                                value.setText(manufacturer);
-                            } else if (label.getText().toString().contains("设备型号")) {
-                                value.setText(model);
-                            } else if (label.getText().toString().contains("屏幕分辨率")) {
-                                value.setText(resolution);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        // 检测Root状态
-        checkRootStatus();
-        
-        // 检测内核版本
-        checkKernelVersion();
-        
-        // 检测ABI类型
-        checkAbiType();
-        
-        // 检测SELinux状态
-        checkSelinuxStatus();
-        
         // 检测Android版本
         checkAndroidVersion();
     }

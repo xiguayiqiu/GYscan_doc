@@ -1,7 +1,6 @@
 package com.gyscan_doc.CyberSecurity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;

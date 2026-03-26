@@ -1,7 +1,6 @@
 package com.gyscan_doc.Linux;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -220,6 +219,12 @@ public class PackageCommandsActivity extends AppCompatActivity {
                 break;
             case "system_info":
                 commands.addAll(createSystemInfoCommands());
+                break;
+            case "symbols":
+                commands.addAll(createSymbolsCommands());
+                break;
+            case "other_distros":
+                commands.addAll(createOtherDistrosCommands());
                 break;
         }
         
@@ -455,7 +460,7 @@ public class PackageCommandsActivity extends AppCompatActivity {
         commands.add(new CommandItem("2>>", "错误重定向：将错误输出追加到文件"));
         commands.add(new CommandItem("&>", "重定向：将标准输出和错误输出重定向到文件"));
         commands.add(new CommandItem("|", "管道：将一个命令的输出作为另一个命令的输入"));
-        commands.add(new CommandItem(";", "命令分隔符：顺序执行多个命令"));
+        commands.add(new CommandItem(";" , "命令分隔符：顺序执行多个命令"));
         commands.add(new CommandItem("&&", "逻辑与：前一个命令成功时才执行后一个命令"));
         commands.add(new CommandItem("||", "逻辑或：前一个命令失败时才执行后一个命令"));
         commands.add(new CommandItem("!", "逻辑非：否定条件或执行历史命令"));
@@ -487,6 +492,59 @@ public class PackageCommandsActivity extends AppCompatActivity {
         commands.add(new CommandItem("!n", "历史命令：执行历史记录中第n条命令"));
         commands.add(new CommandItem("!string", "历史命令：执行最近以string开头的命令"));
         commands.add(new CommandItem("^", "替换：替换上一条命令中的字符串"));
+        return commands;
+    }
+    
+    private List<CommandItem> createOtherDistrosCommands() {
+        List<CommandItem> commands = new ArrayList<>();
+        // Alpine Linux 包管理器
+        commands.add(new CommandItem("apk", "Alpine Linux包管理器"));
+        // FreeBSD 包管理器
+        commands.add(new CommandItem("pkg", "FreeBSD包管理器"));
+        // OpenBSD 包管理器
+        commands.add(new CommandItem("pkg_add", "OpenBSD包安装命令"));
+        commands.add(new CommandItem("pkg_delete", "OpenBSD包删除命令"));
+        commands.add(new CommandItem("pkg_info", "OpenBSD包信息查询命令"));
+        // NetBSD 包管理器
+        commands.add(new CommandItem("pkg_add", "NetBSD包安装命令"));
+        commands.add(new CommandItem("pkg_delete", "NetBSD包删除命令"));
+        commands.add(new CommandItem("pkg_info", "NetBSD包信息查询命令"));
+        // Arch Linux 包管理器
+        commands.add(new CommandItem("pacman", "Arch Linux包管理器"));
+        // Red Hat/CentOS 包管理器
+        commands.add(new CommandItem("yum", "Red Hat/CentOS包管理器（旧版）"));
+        commands.add(new CommandItem("dnf", "Red Hat/CentOS包管理器（新版）"));
+        // SUSE 包管理器
+        commands.add(new CommandItem("zypper", "SUSE包管理器"));
+        // Gentoo 包管理器
+        commands.add(new CommandItem("emerge", "Gentoo包管理器"));
+        // Slackware 包管理器
+        commands.add(new CommandItem("slackpkg", "Slackware包管理器"));
+        // 其他发行版特有命令
+        commands.add(new CommandItem("portage", "Gentoo Portage包管理系统"));
+        commands.add(new CommandItem("port", "FreeBSD Ports系统"));
+        commands.add(new CommandItem("pkgng", "FreeBSD新一代包管理器"));
+        // Go 语言包管理器
+        commands.add(new CommandItem("go", "Go语言命令行工具"));
+        commands.add(new CommandItem("go build", "Go语言编译命令"));
+        commands.add(new CommandItem("go vet", "Go语言代码检查命令"));
+        commands.add(new CommandItem("go mod", "Go语言模块管理"));
+        commands.add(new CommandItem("go get", "Go语言依赖获取"));
+        // Rust 语言包管理器
+        commands.add(new CommandItem("cargo", "Rust语言包管理器"));
+        commands.add(new CommandItem("cargo build", "Rust语言编译命令"));
+        commands.add(new CommandItem("cargo check", "Rust语言代码检查命令"));
+        commands.add(new CommandItem("cargo test", "Rust语言测试命令"));
+        commands.add(new CommandItem("cargo run", "Rust语言运行命令"));
+        // Node.js 包管理器
+        commands.add(new CommandItem("npm", "Node.js包管理器"));
+        commands.add(new CommandItem("yarn", "Yarn包管理器"));
+        commands.add(new CommandItem("pnpm", "pnpm包管理器"));
+        // Python 包管理器
+        commands.add(new CommandItem("pip", "Python包管理器"));
+        commands.add(new CommandItem("pip3", "Python3包管理器"));
+        commands.add(new CommandItem("poetry", "Python依赖管理工具"));
+        commands.add(new CommandItem("pipenv", "Python虚拟环境和依赖管理工具"));
         return commands;
     }
 
@@ -646,6 +704,11 @@ public class PackageCommandsActivity extends AppCompatActivity {
         commands.add(new CommandItem("nstat", "显示网络统计"));
         commands.add(new CommandItem("ctstat", "显示连接跟踪统计"));
         commands.add(new CommandItem("rtacct", "显示路由统计"));
+        // NetworkManager工具命令
+        commands.add(new CommandItem("nmcli", "NetworkManager命令行工具"));
+        commands.add(new CommandItem("nmtui", "NetworkManager文本用户界面"));
+        commands.add(new CommandItem("nm-online", "检查网络连接状态"));
+        commands.add(new CommandItem("nm-connection-editor", "网络连接编辑器"));
         return commands;
     }
 

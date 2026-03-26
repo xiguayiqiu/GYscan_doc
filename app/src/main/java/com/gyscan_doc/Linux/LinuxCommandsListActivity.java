@@ -1,21 +1,17 @@
 package com.gyscan_doc.Linux;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.gyscan_doc.utils.ScreenUtils;
 import com.gyscan_doc.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,42 +30,7 @@ public class LinuxCommandsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_linux_commands_list);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            // 清除透明状态栏标志，确保状态栏显示
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            // 添加绘制系统栏背景的标志
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            // 根据当前主题使用合适的状态栏背景色
-            int statusBarColor;
-            int currentNightMode = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
-            if (currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES) {
-                // 暗色模式
-                statusBarColor = ContextCompat.getColor(this, R.color.dark_theme_dark_blue);
-            } else {
-                // 亮色模式
-                statusBarColor = ContextCompat.getColor(this, R.color.theme_dark_blue);
-            }
-            window.setStatusBarColor(statusBarColor);
-            // 确保状态栏文字为白色
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                // 清除SYSTEM_UI_FLAG_LIGHT_STATUS_BAR标志，确保状态栏文字为白色
-                int flags = window.getDecorView().getSystemUiVisibility();
-                flags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-                window.getDecorView().setSystemUiVisibility(flags);
-            } else {
-                // 对于Android 6.0以下的设备，使用更简单的方法确保状态栏文字可见
-                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-            }
-        }
-
-        // 适配刘海屏、挖孔屏、水滴屏
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            Window window = getWindow();
-            WindowManager.LayoutParams layoutParams = window.getAttributes();
-            layoutParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-            window.setAttributes(layoutParams);
-        }
+        ScreenUtils.setupScreen(this);
 
         setupToolbar();
         setupRecyclerView();
@@ -286,6 +247,20 @@ public class LinuxCommandsListActivity extends AppCompatActivity {
         systemInfo.setDescription("System Info");
         systemInfo.setIcon("info");
         packages.add(systemInfo);
+        
+        CommandPackage symbols = new CommandPackage();
+        symbols.setName("symbols");
+        symbols.setTitle("Shell 符号命令");
+        symbols.setDescription("Shell Symbols");
+        symbols.setIcon("symbol");
+        packages.add(symbols);
+        
+        CommandPackage otherDistros = new CommandPackage();
+        otherDistros.setName("other_distros");
+        otherDistros.setTitle("其他发行版与编程管理器命令");
+        otherDistros.setDescription("Other Distros & Programming Managers");
+        otherDistros.setIcon("distro");
+        packages.add(otherDistros);
         
         return packages;
     }

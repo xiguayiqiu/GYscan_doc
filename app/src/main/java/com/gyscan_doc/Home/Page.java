@@ -81,9 +81,20 @@ public class Page extends AppCompatActivity {
             loadWindowsCommands(titleText, descriptionText, pointsText);
         } else if (menuItemId == MENU_LINUX_TOOLS) {
             loadLinuxTools(titleText, descriptionText, pointsText);
+        } else if (menuItemId == MENU_SECURITY_ADVANCED) {
+            loadSecurityAdvanced(titleText, descriptionText, pointsText);
         } else {
-            loadWindowsCommands(titleText, descriptionText, pointsText);
+            // 默认保持原样，不加载Windows命令内容
+            titleText.setText("未知页面");
+            descriptionText.setText("该页面尚未实现");
+            pointsText.setText("");
         }
+    }
+
+    private void loadSecurityAdvanced(TextView title, TextView description, TextView points) {
+        title.setText("网络安全高级技巧");
+        description.setText("高级渗透分类涵盖了白帽工程师所需的各种高级渗透技巧和方法。本课程将深入探讨信息收集、Web应用漏洞利用、内网渗透、防御绕过、云原生安全等高级渗透技术。");
+        points.setText("• 高级信息收集与侦察\n• Web应用高级漏洞利用\n• 内网渗透与横向移动\n• 防御绕过技术\n• 云原生与容器安全\n• 自动化与AI辅助渗透\n• 物理与社会工程学\n• 报告与合规");
     }
 
     private void loadWindowsCommands(TextView title, TextView description, TextView points) {
@@ -107,6 +118,7 @@ public class Page extends AppCompatActivity {
             } else if (menuItemId == MENU_LINUX_TOOLS) {
                 startActivity(new Intent(this, com.gyscan_doc.Linux.LinuxCommandsActivity.class));
             }
+            // 其他菜单项不执行任何操作
         });
     }
 

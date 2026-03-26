@@ -423,6 +423,39 @@
                         android:layout_marginBottom="24dp" />
 
                     <TextView
+                        android:id="@+id/websiteTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="GYscan官网"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_green_text"
+                        android:layout_marginBottom="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="24dp">
+                        <TextView
+                            android:id="@+id/websiteLink"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="https://gyscan.space"
+                            android:textSize="18sp"
+                            android:textColor="@color/dark_green_text"
+                            android:clickable="true"
+                            android:focusable="true" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/dark_text_secondary"
+                        android:alpha="0.2"
+                        android:layout_marginBottom="24dp" />
+
+                    <TextView
                         android:id="@+id/linksTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

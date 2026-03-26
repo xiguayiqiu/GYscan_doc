@@ -4,16 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/theme_blue"
+    android:background="?attr/colorPrimary"
     android:fitsSystemWindows="true">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/theme_blue"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:paddingTop="@dimen/toolbar_padding_top"
+        android:paddingBottom="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,7 +25,6 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,62 +32,41 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#FFFFFF"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="?attr/cardBackgroundColor"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="24dp">
-
-                    <TextView
-                        android:id="@+id/contentTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="网络安全基础"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="#333333"
-                        android:layout_marginBottom="16dp" />
+                    android:orientation="vertical">
 
                     <WebView
-                        android:id="@+id/contentWebView"
+                        android:id="@+id/command_usage"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="24dp" />
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/command_options"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="24dp"
+                        android:text=""
+                        android:textSize="16sp"
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:lineSpacingExtra="8dp"
+                        android:inputType="textMultiLine"
+                        android:breakStrategy="simple" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/startLearningButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:text="开始学习"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:backgroundTint="@color/btn_green"
-                    android:stateListAnimator="@animator/btn_scale_animator"
-                    app:cornerRadius="28dp" />
-
-            </LinearLayout>
 
         </LinearLayout>
 

@@ -13,7 +13,6 @@ import androidx.core.content.ContextCompat;
 import androidx.media3.common.MediaItem;
 import androidx.media3.exoplayer.ExoPlayer;
 import androidx.media3.ui.PlayerView;
-import androidx.media3.ui.AspectRatioFrameLayout;
 
 public class EasterEggActivity extends AppCompatActivity {
 
@@ -29,8 +28,18 @@ public class EasterEggActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(ContextCompat.getColor(this, R.color.theme_blue));
-            // 确保状态栏文字为白色（默认）
+            // 根据当前主题设置状态栏颜色
+            int statusBarColor;
+            int currentNightMode = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+            if (currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES) {
+                // 暗色模式
+                statusBarColor = ContextCompat.getColor(this, R.color.dark_theme_blue);
+            } else {
+                // 亮色模式
+                statusBarColor = ContextCompat.getColor(this, R.color.theme_blue);
+            }
+            window.setStatusBarColor(statusBarColor);
+            // 确保状态栏文字为白色
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 window.getDecorView().setSystemUiVisibility(0);
             }

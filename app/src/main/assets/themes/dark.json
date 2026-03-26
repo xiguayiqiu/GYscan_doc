@@ -1,0 +1,76 @@
+{
+  "name": "默认暗色",
+  "body": {
+    "backgroundColor": "#2D2D2D",
+    "color": "#e0e0e0",
+    "fontFamily": "sans-serif",
+    "lineHeight": "1.4",
+    "padding": "12px",
+    "fontSize": "14px"
+  },
+  "h1": {
+    "color": "#fff",
+    "fontSize": "18px",
+    "marginBottom": "12px"
+  },
+  "h2": {
+    "color": "#ddd",
+    "fontSize": "16px",
+    "marginTop": "16px",
+    "marginBottom": "12px"
+  },
+  "h3": {
+    "color": "#ccc",
+    "fontSize": "14px",
+    "marginTop": "12px",
+    "marginBottom": "8px"
+  },
+  "p": {
+    "marginBottom": "12px"
+  },
+  "pre": {
+    "backgroundColor": "#2D2D2D",
+    "padding": "16px",
+    "borderRadius": "8px",
+    "overflowX": "auto",
+    "marginBottom": "18px",
+    "fontSize": "16px",
+    "border": "1px solid #3e4451",
+    "boxShadow": "0 2px 8px rgba(0,0,0,0.3)"
+  },
+  "code": {
+    "fontFamily": "'Monaco', 'Menlo', 'Ubuntu Mono', monospace",
+    "fontSize": "15px",
+    "color": "#abb2bf",
+    "lineHeight": "1.6"
+  },
+  "ul": {
+    "marginBottom": "12px",
+    "paddingLeft": "24px"
+  },
+  "ol": {
+    "marginBottom": "12px",
+    "paddingLeft": "24px"
+  },
+  "li": {
+    "marginBottom": "6px"
+  },
+  "hr": {
+    "margin": "20px 0",
+    "border": "0",
+    "borderTop": "1px solid #333"
+  },
+  "strong": {
+    "fontWeight": "bold"
+  },
+  "em": {
+    "fontStyle": "italic"
+  },
+  "a": {
+    "color": "#42a5f5",
+    "textDecoration": "none"
+  },
+  "a:hover": {
+    "textDecoration": "underline"
+  }
+}

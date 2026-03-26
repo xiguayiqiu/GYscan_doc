@@ -13,6 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/theme_blue"
         android:elevation="4dp"
+        android:paddingTop="@dimen/status_bar_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -214,168 +215,7 @@
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/hint_text"
-                        android:alpha="0.2"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginBottom="24dp" />
 
-                    <TextView
-                        android:id="@+id/hardwareTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="系统"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/theme_blue"
-                        android:layout_marginBottom="16dp" />
-
-                    <LinearLayout
-                        android:id="@+id/systemInfoLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="8dp">
-                            <TextView
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:text="设备制造商:" 
-                                android:textSize="16sp"
-                                android:textColor="@color/hint_text" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="未知"
-                                android:textSize="16sp"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="8dp">
-                            <TextView
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:text="设备型号:" 
-                                android:textSize="16sp"
-                                android:textColor="@color/hint_text" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="未知"
-                                android:textSize="16sp"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="8dp">
-                            <TextView
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:text="屏幕分辨率:" 
-                                android:textSize="16sp"
-                                android:textColor="@color/hint_text" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="未知"
-                                android:textSize="16sp"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="8dp">
-                            <TextView
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:text="Root状态:" 
-                                android:textSize="16sp"
-                                android:textColor="@color/hint_text" />
-                            <TextView
-                                android:id="@+id/rootStatus"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="检测中..."
-                                android:textSize="16sp"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="8dp">
-                            <TextView
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:text="内核版本:" 
-                                android:textSize="16sp"
-                                android:textColor="@color/hint_text" />
-                            <TextView
-                                android:id="@+id/kernelVersion"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="检测中..."
-                                android:textSize="16sp"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="8dp">
-                            <TextView
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:text="ABI类型:" 
-                                android:textSize="16sp"
-                                android:textColor="@color/hint_text" />
-                            <TextView
-                                android:id="@+id/abiType"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="检测中..."
-                                android:textSize="16sp"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="8dp">
-                            <TextView
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:text="SELinux状态:" 
-                                android:textSize="16sp"
-                                android:textColor="@color/hint_text" />
-                            <TextView
-                                android:id="@+id/selinuxStatus"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="检测中..."
-                                android:textSize="16sp"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
@@ -414,6 +254,39 @@
                         android:textColor="@color/black"
                         android:lineSpacingExtra="8dp"
                         android:layout_marginBottom="24dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/hint_text"
+                        android:alpha="0.2"
+                        android:layout_marginBottom="24dp" />
+
+                    <TextView
+                        android:id="@+id/websiteTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="GYscan官网"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/theme_blue"
+                        android:layout_marginBottom="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="24dp">
+                        <TextView
+                            android:id="@+id/websiteLink"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="https://gyscan.space"
+                            android:textSize="18sp"
+                            android:textColor="@color/theme_blue"
+                            android:clickable="true"
+                            android:focusable="true" />
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"

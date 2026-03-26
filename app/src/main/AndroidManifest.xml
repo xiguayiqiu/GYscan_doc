@@ -13,6 +13,8 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/app"
         android:supportsRtl="true"
+        android:resizeableActivity="true"
+        android:maxAspectRatio="2.4"
         android:theme="@style/Theme.GYscandoc">
         <activity
             android:name=".Home.Page"
@@ -30,10 +32,22 @@
             android:name=".Security.SecurityBasicsActivity"
             android:exported="false" />
         <activity
+            android:name=".Security.SecuritySummaryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Security.SecurityEngineerListActivity"
+            android:exported="false" />
+        <activity
             android:name=".Security.SecurityBasicsListActivity"
             android:exported="false" />
         <activity
             android:name=".Security.SecurityBasicsDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Security.AdvancedPenetrationListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Security.AdvancedPenetrationDetailActivity"
             android:exported="false" />
         <activity
             android:name=".Linux.LinuxCommandsActivity"
@@ -80,6 +94,10 @@
         <activity
             android:name=".TermsActivity"
             android:exported="false" />
+        <activity
+            android:name=".RelatedProjectsActivity"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

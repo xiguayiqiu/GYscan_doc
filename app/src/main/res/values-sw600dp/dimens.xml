@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_height">56dp</dimen>
+    <dimen name="button_corner_radius">12dp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="layout_margin_small">12dp</dimen>
+    <dimen name="layout_margin_medium">24dp</dimen>
+    <dimen name="layout_margin_large">32dp</dimen>
+    <dimen name="layout_margin_xlarge">48dp</dimen>
+    <dimen name="layout_margin_xxlarge">64dp</dimen>
+    <dimen name="image_size_small">80dp</dimen>
+    <dimen name="image_size_medium">120dp</dimen>
+    <dimen name="image_size_large">160dp</dimen>
+    <dimen name="image_size_xlarge">320dp</dimen>
+    <dimen name="divider_width">3dp</dimen>
+    <dimen name="progress_bar_height">120dp</dimen>
+    <dimen name="progress_bar_width">240dp</dimen>
+    <dimen name="drawer_width">320dp</dimen>
+    <dimen name="card_elevation">6dp</dimen>
+    <dimen name="toolbar_height">64dp</dimen>
+    <dimen name="status_bar_height">24dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_small">12dp</dimen>
+    <dimen name="layout_margin">24dp</dimen>
+    <dimen name="card_padding">24dp</dimen>
+</resources>

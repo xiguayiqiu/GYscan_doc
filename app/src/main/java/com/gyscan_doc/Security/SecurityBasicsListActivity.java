@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,12 +64,15 @@ public class SecurityBasicsListActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         
+        // 确保返回按钮是白色的
         for (int i = 0; i < toolbar.getChildCount(); i++) {
             View child = toolbar.getChildAt(i);
-            if (child instanceof ImageButton) {
-                ImageButton menuButton = (ImageButton) child;
-                menuButton.setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.SRC_ATOP);
-                break;
+            if (child instanceof android.widget.ImageButton) {
+                android.widget.ImageButton button = (android.widget.ImageButton) child;
+                button.setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.SRC_ATOP);
+            } else if (child instanceof androidx.appcompat.widget.AppCompatImageButton) {
+                androidx.appcompat.widget.AppCompatImageButton button = (androidx.appcompat.widget.AppCompatImageButton) child;
+                button.setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.SRC_ATOP);
             }
         }
     }

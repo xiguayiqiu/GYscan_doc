@@ -52,7 +52,6 @@ dependencies {
     implementation libs.activity
     implementation libs.constraintlayout
     implementation libs.cardview
-    implementation libs.material.v190
 
     // Markdown支持
     implementation 'org.commonmark:commonmark:0.19.0'
@@ -64,6 +63,9 @@ dependencies {
     // Jetpack Media3库
     implementation 'androidx.media3:media3-exoplayer:1.4.0'
     implementation 'androidx.media3:media3-ui:1.4.0'
+
+    // Gson库
+    implementation 'com.google.code.gson:gson:2.10.1'
 
     // 测试依赖
     testImplementation libs.junit

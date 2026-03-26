@@ -179,8 +179,15 @@ public class Intro3 extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 先标记引导页为已显示
                 markIntroAsShown();
-                startMainActivity();
+                // 延迟一点时间，确保SharedPreferences已经写入
+                new android.os.Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startMainActivity();
+                    }
+                }, 100);
             }
         });
     }
@@ -207,6 +214,6 @@ public class Intro3 extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(KEY_INTRO_SHOWN, true);
-        editor.commit();
+        editor.apply();
     }
 }

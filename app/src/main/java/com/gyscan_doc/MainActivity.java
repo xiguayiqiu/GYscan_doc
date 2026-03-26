@@ -4,30 +4,28 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import com.google.android.material.navigation.NavigationView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.gyscan_doc.adapter.DrawerAdapter;
+import com.gyscan_doc.model.DrawerItem;
+import com.gyscan_doc.utils.ScreenUtils;
 import com.gyscan_doc.Home.Page;
 import com.gyscan_doc.Intro.Intro1;
 import com.gyscan_doc.Linux.LinuxCommandsActivity;
+import com.gyscan_doc.Windows.WindowsCommandsActivity;
 import com.gyscan_doc.Security.SecurityBasicsActivity;
+import com.gyscan_doc.Security.SecuritySummaryActivity;
 import com.gyscan_doc.CyberSecurity.CyberSecurityActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_INTRO_SHOWN = "intro_shown";
     private static final String KEY_TERMS_ACCEPTED = "terms_accepted";
     private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
+    private LinearLayout navigationView;
+    private RecyclerView drawerRecyclerView;
+    private DrawerAdapter drawerAdapter;
     private View menuButton;
     private float menuRotation = 0f;
 
@@ -58,25 +58,7 @@ public class MainActivity extends AppCompatActivity {
         
         setContentView(R.layout.activity_main);
 
-        // 设置状态栏颜色
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(ContextCompat.getColor(this, R.color.theme_blue));
-            // 确保状态栏文字为白色（默认）
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                window.getDecorView().setSystemUiVisibility(0);
-            }
-        }
-
-        // 适配刘海屏、挖孔屏、水滴屏
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            Window window = getWindow();
-            WindowManager.LayoutParams layoutParams = window.getAttributes();
-            layoutParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-            window.setAttributes(layoutParams);
-        }
-
+        setupScreen();
         setupToolbar();
         setupDrawer();
         setupStartButton();
@@ -104,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void setupScreen() {
+        ScreenUtils.setupScreen(this);
+    }
+
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -114,20 +100,13 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         
-        // 确保菜单按钮是白色的
-        for (int i = 0; i < toolbar.getChildCount(); i++) {
-            View child = toolbar.getChildAt(i);
-            if (child instanceof android.widget.ImageButton) {
-                ImageButton menuButton = (ImageButton) child;
-                menuButton.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-                break;
-            }
-        }
+        ScreenUtils.setupToolbar(toolbar);
     }
 
     private void setupDrawer() {
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationView);
+        drawerRecyclerView = findViewById(R.id.drawerRecyclerView);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         for (int i = 0; i < toolbar.getChildCount(); i++) {
@@ -173,20 +152,59 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        // 初始化RecyclerView
+        drawerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // 启用默认的动画效果，设置更长的动画持续时间以获得更平滑的效果
+        androidx.recyclerview.widget.DefaultItemAnimator itemAnimator = new androidx.recyclerview.widget.DefaultItemAnimator();
+        itemAnimator.setAddDuration(300);
+        itemAnimator.setRemoveDuration(300);
+        itemAnimator.setMoveDuration(300);
+        itemAnimator.setChangeDuration(300);
+        drawerRecyclerView.setItemAnimator(itemAnimator);
+        
+        // 构建菜单项
+        final java.util.List<DrawerItem> drawerItems = DrawerAdapter.buildDrawerItems();
+        java.util.List<DrawerItem> flattenedItems = DrawerAdapter.getFlattenedItems(drawerItems);
+        
+        // 设置适配器
+        drawerAdapter = new DrawerAdapter(this, flattenedItems, new DrawerAdapter.OnItemClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                // 为菜单项添加点击动画
-                View menuItemView = navigationView.findViewById(item.getItemId());
-                if (menuItemView != null) {
-                    animateMenuItemClick(menuItemView);
-                }
-                
-                handleNavigationItemClick(item);
+            public void onItemClick(int itemId) {
+                // 处理菜单项点击
+                handleMenuItemClick(itemId);
                 drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
             }
         });
+        drawerRecyclerView.setAdapter(drawerAdapter);
+    }
+
+    private void handleMenuItemClick(int itemId) {
+        Intent intent = null;
+        
+        if (itemId == R.id.nav_security_basics) {
+            intent = new Intent(MainActivity.this, SecurityBasicsActivity.class);
+        } else if (itemId == R.id.nav_security_overview) {
+            intent = new Intent(MainActivity.this, SecuritySummaryActivity.class);
+        } else if (itemId == R.id.nav_security_advanced) {
+            intent = new Intent(MainActivity.this, com.gyscan_doc.Security.AdvancedPenetrationListActivity.class);
+        } else if (itemId == R.id.nav_linux_commands) {
+            intent = new Intent(MainActivity.this, LinuxCommandsActivity.class);
+        } else if (itemId == R.id.nav_windows_commands) {
+            intent = new Intent(MainActivity.this, WindowsCommandsActivity.class);
+        } else if (itemId == R.id.nav_linux_tools) {
+            intent = new Intent(MainActivity.this, CyberSecurityActivity.class);
+        } else if (itemId == R.id.nav_related_projects) {
+            intent = new Intent(MainActivity.this, RelatedProjectsActivity.class);
+        } else if (itemId == R.id.nav_about) {
+            intent = new Intent(MainActivity.this, AboutActivity.class);
+        } else {
+            intent = new Intent(MainActivity.this, Page.class);
+            intent.putExtra("menu_item", itemId);
+        }
+        
+        if (intent != null) {
+            startActivity(intent);
+        }
     }
 
     private void handleNavigationItemClick(MenuItem item) {
@@ -195,11 +213,24 @@ public class MainActivity extends AppCompatActivity {
         if (itemId == R.id.nav_security_basics) {
             Intent intent = new Intent(MainActivity.this, SecurityBasicsActivity.class);
             startActivity(intent);
+        } else if (itemId == R.id.nav_security_overview) {
+            Intent intent = new Intent(MainActivity.this, SecuritySummaryActivity.class);
+            startActivity(intent);
+        } else if (itemId == R.id.nav_security_advanced) {
+            Intent intent = new Intent(MainActivity.this, com.gyscan_doc.Security.AdvancedPenetrationListActivity.class);
+            startActivity(intent);
         } else if (itemId == R.id.nav_linux_commands) {
             Intent intent = new Intent(MainActivity.this, LinuxCommandsActivity.class);
             startActivity(intent);
+        } else if (itemId == R.id.nav_windows_commands) {
+            Intent intent = new Intent(MainActivity.this, WindowsCommandsActivity.class);
+            startActivity(intent);
         } else if (itemId == R.id.nav_linux_tools) {
             Intent intent = new Intent(MainActivity.this, CyberSecurityActivity.class);
+            startActivity(intent);
+
+        } else if (itemId == R.id.nav_related_projects) {
+            Intent intent = new Intent(MainActivity.this, RelatedProjectsActivity.class);
             startActivity(intent);
         } else if (itemId == R.id.nav_about) {
             Intent intent = new Intent(MainActivity.this, AboutActivity.class);
@@ -224,25 +255,6 @@ public class MainActivity extends AppCompatActivity {
         animatorSet.playTogether(scaleX, scaleY, alpha);
         animatorSet.setDuration(300);
         animatorSet.start();
-        
-        // 移除选中状态
-        view.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // 清除菜单项的选中状态
-                if (navigationView != null) {
-                    Menu menu = navigationView.getMenu();
-                    if (menu != null) {
-                        for (int i = 0; i < menu.size(); i++) {
-                            MenuItem menuItem = menu.getItem(i);
-                            if (menuItem != null) {
-                                menuItem.setChecked(false);
-                            }
-                        }
-                    }
-                }
-            }
-        }, 300);
     }
 
     @Override
@@ -257,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
 
     
     private void setupStartButton() {
-        Button startButton = findViewById(R.id.startButton);
+        Button startButton = findViewById(R.id.startLearningButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -272,6 +284,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
     
     private void setupVersionText() {

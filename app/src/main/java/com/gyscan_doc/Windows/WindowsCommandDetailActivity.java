@@ -1,7 +1,9 @@
 package com.gyscan_doc.Windows;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -12,22 +14,24 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import com.gyscan_doc.utils.ScreenUtils;
 import com.gyscan_doc.R;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.io.Writer;
 
 public class WindowsCommandDetailActivity extends AppCompatActivity {
 
     private WebView webView;
+    private SharedPreferences sharedPreferences;
+    private String currentCommandName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_command_detail);
+        
+        // 初始化SharedPreferences
+        sharedPreferences = getSharedPreferences("theme_prefs", MODE_PRIVATE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -59,9 +63,14 @@ public class WindowsCommandDetailActivity extends AppCompatActivity {
 
         String commandName = getIntent().getStringExtra("command_name");
         String commandTitle = getIntent().getStringExtra("command_title");
+        
+        // 保存当前命令名称
+        currentCommandName = commandName;
 
         setupToolbar(commandTitle);
         setupWebView(commandName);
+        
+
     }
 
     private void setupToolbar(String title) {
@@ -71,16 +80,12 @@ public class WindowsCommandDetailActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(title);
+            // 强制设置导航图标为白色
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white);
         }
         
-        for (int i = 0; i < toolbar.getChildCount(); i++) {
-            View child = toolbar.getChildAt(i);
-            if (child instanceof android.widget.ImageButton) {
-                android.widget.ImageButton menuButton = (android.widget.ImageButton) child;
-                menuButton.setColorFilter(android.graphics.Color.WHITE, android.graphics.PorterDuff.Mode.SRC_ATOP);
-                break;
-            }
-        }
+        // 确保所有按钮（返回按钮和菜单按钮）都是白色的
+        ScreenUtils.setupToolbar(toolbar);
     }
 
     private void setupWebView(String commandName) {
@@ -109,91 +114,113 @@ public class WindowsCommandDetailActivity extends AppCompatActivity {
         if (markdownContent != null) {
             try {
                 String htmlContent = convertMarkdownToHtml(markdownContent);
-                
-                // 构建完整的HTML页面
-                String fullHtml = "<!DOCTYPE html>" +
-                        "<html>" +
-                        "<head>" +
-                        "<meta charset=\"UTF-8\">" +
-                        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\">" +
-                        "<style>" +
-                        "body { font-family: sans-serif; line-height: 1.6; padding: 16px; background-color: #f5f5f5; color: #333333; font-size: 18px; }" +
-                        "h1 { color: #333; font-size: 24px; margin-bottom: 16px; }" +
-                        "h2 { color: #555; font-size: 20px; margin-top: 20px; margin-bottom: 14px; }" +
-                        "h3 { color: #777; font-size: 18px; margin-top: 16px; margin-bottom: 10px; }" +
-                        "p { margin-bottom: 14px; }" +
-                        "pre { background-color: #f8f9fa; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 18px; font-size: 16px; border: 1px solid #e9ecef; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }" +
-                        "code { font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 15px; color: #333; line-height: 1.6; }" +
-                        "pre code { background-color: transparent; padding: 0; border-radius: 0; border: none; box-shadow: none; }" +
-                        "ul { margin-bottom: 14px; padding-left: 28px; }" +
-                        "ol { margin-bottom: 14px; padding-left: 28px; }" +
-                        "li { margin-bottom: 8px; }" +
-                        "hr { margin: 24px 0; border: 0; border-top: 1px solid #eee; }" +
-                        "strong { font-weight: bold; }" +
-                        "em { font-style: italic; }" +
-                        "a { color: #1976D2; text-decoration: none; }" +
-                        "a:hover { text-decoration: underline; }" +
-                        "@media (prefers-color-scheme: dark) {" +
-                        "  body { background-color: #2D2D2D; color: #e0e0e0; }" +
-                        "  h1 { color: #fff; }" +
-                        "  h2 { color: #ddd; }" +
-                        "  h3 { color: #ccc; }" +
-                        "  pre { background-color: #2D2D2D; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 18px; font-size: 16px; border: 1px solid #3e4451; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }" +
-                        "  code { font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 15px; color: #abb2bf; line-height: 1.6; }" +
-                        "  pre code { background-color: transparent; padding: 0; border-radius: 0; border: none; box-shadow: none; }" +
-                        "  hr { border-top-color: #333; }" +
-                        "  a { color: #42a5f5; }" +
-                        "}" +
-                        "</style>" +
-                        "</head>" +
-                        "<body>" +
-                        htmlContent +
-                        "</body>" +
-                        "</html>";
-                
-                // 显示HTML内容
-                usageWebView.loadDataWithBaseURL(null, fullHtml, "text/html", "UTF-8", null);
+                loadHtmlContent(usageWebView, htmlContent);
             } catch (Exception e) {
                 // 如果Markdown解析失败，显示错误信息
-                String errorHtml = "<!DOCTYPE html>" +
-                        "<html>" +
-                        "<head>" +
-                        "<meta charset=\"UTF-8\">" +
-                        "<style>" +
-                        "body { font-family: sans-serif; line-height: 1.6; padding: 20px; background-color: #ffffff; color: #333333; }" +
-                        "@media (prefers-color-scheme: dark) {" +
-                        "  body { background-color: #121212; color: #e0e0e0; }" +
-                        "} " +
-                        "</style>" +
-                        "</head>" +
-                        "<body>" +
-                        "<p>命令说明信息解析失败</p>" +
-                        "</body>" +
-                        "</html>";
-                usageWebView.loadDataWithBaseURL(null, errorHtml, "text/html", "UTF-8", null);
+                loadHtmlContent(usageWebView, "<p>命令说明信息解析失败</p>");
             }
         } else {
             // 如果没有找到Markdown文件，显示默认信息
-            String defaultHtml = "<!DOCTYPE html>" +
-                    "<html>" +
-                    "<head>" +
-                    "<meta charset=\"UTF-8\">" +
-                    "<style>" +
-                     "body { font-family: sans-serif; line-height: 1.6; padding: 20px; background-color: #ffffff; color: #333333; }" +
-                    "@media (prefers-color-scheme: dark) {" +
-                    "  body { background-color: #121212; color: #e0e0e0; }" +
-                    "} " +
-                    "</style>" +
-                    "</head>" +
-                    "<body>" +
-                    "<p>暂无命令说明信息</p>" +
-                    "</body>" +
-                    "</html>";
-            usageWebView.loadDataWithBaseURL(null, defaultHtml, "text/html", "UTF-8", null);
+            loadHtmlContent(usageWebView, "<p>暂无命令说明信息</p>");
         }
         
         // 清空optionsTextView，因为所有信息都在usageWebView中显示
         optionsTextView.setText("");
+    }
+    
+    private void loadHtmlContent(WebView webView, String htmlContent) {
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setDefaultTextEncodingName("UTF-8");
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        
+        String themeName = sharedPreferences.getString("theme", "light");
+        String css = loadThemeCss(themeName);
+        
+        // 确定基础URL，用于加载字体文件
+        String baseUrl = "file:///android_asset/";
+        
+        // 处理phycat主题的特殊路径
+        if (themeName.startsWith("phycat/")) {
+            // 提取phycat主题的路径部分
+            int lastSlashIndex = themeName.lastIndexOf("/");
+            if (lastSlashIndex != -1) {
+                String phycatPath = themeName.substring(0, lastSlashIndex + 1);
+                baseUrl = "file:///android_asset/themes/" + phycatPath;
+            }
+        }
+        
+        String fullHtml = "<!DOCTYPE html>" +
+                "<html>" +
+                "<head>" +
+                "<meta charset=\"UTF-8\">" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\">" +
+                "<style>" +
+                css +
+                "html, body { width: 100% !important; margin: 0 !important; padding: 0 !important; background-color: inherit; } " +
+                "#write { width: 100% !important; margin: 0 !important; padding: 24px !important; box-sizing: border-box !important; } " +
+                "</style>" +
+                "</head>" +
+                "<body>" +
+                "<div id=\"write\">" +
+                htmlContent +
+                "</div>" +
+                "</body>" +
+                "</html>";
+        
+        // 根据主题设置WebView背景色
+        if (themeName.equals("dark") || themeName.equals("github-dark") || themeName.startsWith("bit-clean-dark") || themeName.contains("dark")) {
+            webView.setBackgroundColor(0xFF2D2D2D);
+        } else {
+            webView.setBackgroundColor(0xFFFFFFFF);
+        }
+        
+        webView.loadDataWithBaseURL(baseUrl, fullHtml, "text/html", "UTF-8", null);
+    }
+    
+    private String loadThemeCss(String themeName) {
+        try {
+            // 检查themeName是否已经包含.css后缀
+            String cssPath;
+            if (themeName.endsWith(".css")) {
+                cssPath = "themes/" + themeName;
+            } else {
+                cssPath = "themes/" + themeName + ".css";
+            }
+            InputStream inputStream = getAssets().open(cssPath);
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            inputStream.close();
+            return new String(buffer, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+            // 返回默认CSS
+            return getDefaultCss();
+        }
+    }
+    
+    private String getDefaultCss() {
+        return "body { font-family: sans-serif; line-height: 1.6; padding: 16px; background-color: #f5f5f5; color: #333333; font-size: 18px; }" +
+                "h1 { color: #333; font-size: 24px; margin-bottom: 16px; }" +
+                "h2 { color: #555; font-size: 20px; margin-top: 20px; margin-bottom: 14px; }" +
+                "h3 { color: #777; font-size: 18px; margin-top: 16px; margin-bottom: 10px; }" +
+                "p { margin-bottom: 14px; }" +
+                "pre { background-color: #f8f9fa; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 18px; font-size: 16px; border: 1px solid #e9ecef; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }" +
+                "code { font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 15px; color: #333; line-height: 1.6; }" +
+                "pre code { background-color: transparent; padding: 0; border-radius: 0; border: none; box-shadow: none; }" +
+                "ul { margin-bottom: 14px; padding-left: 28px; }" +
+                "ol { margin-bottom: 14px; padding-left: 28px; }" +
+                "li { margin-bottom: 8px; }" +
+                "hr { margin: 24px 0; border: 0; border-top: 1px solid #eee; }" +
+                "strong { font-weight: bold; }" +
+                "em { font-style: italic; }" +
+                "a { color: #1976D2; text-decoration: none; }" +
+                "a:hover { text-decoration: underline; }";
     }
 
     private String loadMarkdownFromAssets(String commandName) {
@@ -232,12 +259,84 @@ public class WindowsCommandDetailActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.theme_menu, menu);
+        
+        // 确保菜单按钮是白色的（使用post确保按钮已添加到视图中）
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.post(new Runnable() {
+            @Override
+            public void run() {
+                ScreenUtils.setupToolbar(toolbar);
+            }
+        });
+        
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        int id = item.getItemId();
+        
+        if (id == android.R.id.home) {
             finish();
             return true;
+        } else if (id == R.id.theme_light) {
+            saveThemePreference("light");
+            reloadContent();
+            return true;
+        } else if (id == R.id.theme_dark) {
+            saveThemePreference("dark");
+            reloadContent();
+            return true;
+        } else if (id == R.id.theme_github) {
+            saveThemePreference("github");
+            reloadContent();
+            return true;
+        } else if (id == R.id.theme_manifest) {
+            saveThemePreference("manifest");
+            reloadContent();
+            return true;
+        } else if (id == R.id.theme_bit_clean_light) {
+            saveThemePreference("bit-clean-light");
+            reloadContent();
+            return true;
+        } else if (id == R.id.theme_bit_clean_dark) {
+            saveThemePreference("bit-clean-dark");
+            reloadContent();
+            return true;
+        } else if (id == R.id.theme_rose) {
+            saveThemePreference("rose");
+            reloadContent();
+            return true;
+        } else if (id == R.id.theme_phycat_light) {
+            saveThemePreference("phycat/phycat/phycat.light");
+            reloadContent();
+            return true;
+        } else if (id == R.id.theme_phycat_dark) {
+            saveThemePreference("phycat/phycat/phycat.dark");
+            reloadContent();
+            return true;
+        } else if (id == R.id.theme_github_dark) {
+            saveThemePreference("github-dark");
+            reloadContent();
+            return true;
         }
+        
         return super.onOptionsItemSelected(item);
+    }
+    
+    private void saveThemePreference(String themeName) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("theme", themeName);
+        editor.apply();
+    }
+    
+    private void reloadContent() {
+        // 重新加载当前内容以应用新主题
+        if (currentCommandName != null) {
+            setupWebView(currentCommandName);
+        }
     }
 
     @Override

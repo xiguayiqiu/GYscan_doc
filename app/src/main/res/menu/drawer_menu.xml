@@ -1,30 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group>
+    
+    <!-- 网络安全分类 -->
+    <group android:id="@+id/group_security">
         <item
-            android:id="@+id/nav_security_basics"
+            android:id="@+id/nav_security_category"
             android:icon="@drawable/ic_security"
-            android:title="网络安全基础" />
+            android:title="网络安全">
+            <menu>
+                <item
+                    android:id="@+id/nav_security_basics"
+                    android:icon="@drawable/ic_security"
+                    android:title="网络安全基础" />
+                <item
+                    android:id="@+id/nav_security_overview"
+                    android:icon="@drawable/ic_security"
+                    android:title="白帽安全工程师技能" />
+                <item
+                    android:id="@+id/nav_security_advanced"
+                    android:icon="@drawable/ic_security"
+                    android:title="网络安全高级技巧" />
+            </menu>
+        </item>
+    </group>
+
+    <!-- 命令手册分类 -->
+    <group android:id="@+id/group_commands">
         <item
-            android:id="@+id/nav_security_overview"
-            android:icon="@drawable/ic_security"
-            android:title="网络安全概要" />
-        <item
-            android:id="@+id/nav_security_advanced"
-            android:icon="@drawable/ic_security"
-            android:title="网络安全高级技巧" />
-        <item
-            android:id="@+id/nav_linux_commands"
+            android:id="@+id/nav_commands_category"
             android:icon="@drawable/ic_terminal"
-            android:title="Linux自带命令手册" />
+            android:title="命令手册">
+            <menu>
+                <item
+                    android:id="@+id/nav_linux_commands"
+                    android:icon="@drawable/ic_terminal"
+                    android:title="Linux自带命令手册" />
+                <item
+                    android:id="@+id/nav_windows_commands"
+                    android:icon="@drawable/ic_windows"
+                    android:title="Windows命令手册" />
+                <item
+                    android:id="@+id/nav_linux_tools"
+                    android:icon="@drawable/ic_tools"
+                    android:title="Linux常用网安工具命令手册" />
+            </menu>
+        </item>
+    </group>
+
+    <!-- 其他 -->
+    <group android:id="@+id/group_other">
         <item
-            android:id="@+id/nav_windows_commands"
-            android:icon="@drawable/ic_windows"
-            android:title="Windows命令手册" />
-        <item
-            android:id="@+id/nav_linux_tools"
-            android:icon="@drawable/ic_tools"
-            android:title="Linux常用网安工具命令手册" />
+            android:id="@+id/nav_related_projects"
+            android:icon="@drawable/ic_projects"
+            android:title="相关项目" />
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_info"

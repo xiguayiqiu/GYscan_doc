@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/theme_switch"
+        android:title="主题切换"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/theme_light"
+                android:title="默认亮色"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/theme_dark"
+                android:title="默认暗色"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/theme_github"
+                android:title="GitHub亮色风格"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/theme_github_dark"
+                android:title="GitHub暗色风格"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/theme_manifest"
+                android:title="Manifest风格"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/theme_bit_clean_light"
+                android:title="Bit-Clean亮色"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/theme_bit_clean_dark"
+                android:title="Bit-Clean暗色"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/theme_rose"
+                android:title="Rose风格"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/theme_phycat_light"
+                android:title="Phycat亮色"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/theme_phycat_dark"
+                android:title="Phycat暗色"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/other"
+        android:title="其他"
+        app:showAsAction="never" />
+</menu>
