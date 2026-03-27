@@ -11,16 +11,8 @@
                 android:title="默认亮色"
                 app:showAsAction="never" />
             <item
-                android:id="@+id/theme_dark"
-                android:title="默认暗色"
-                app:showAsAction="never" />
-            <item
                 android:id="@+id/theme_github"
                 android:title="GitHub亮色风格"
-                app:showAsAction="never" />
-            <item
-                android:id="@+id/theme_github_dark"
-                android:title="GitHub暗色风格"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/theme_manifest"
@@ -31,20 +23,12 @@
                 android:title="Bit-Clean亮色"
                 app:showAsAction="never" />
             <item
-                android:id="@+id/theme_bit_clean_dark"
-                android:title="Bit-Clean暗色"
-                app:showAsAction="never" />
-            <item
                 android:id="@+id/theme_rose"
                 android:title="Rose风格"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/theme_phycat_light"
                 android:title="Phycat亮色"
-                app:showAsAction="never" />
-            <item
-                android:id="@+id/theme_phycat_dark"
-                android:title="Phycat暗色"
                 app:showAsAction="never" />
         </menu>
     </item>

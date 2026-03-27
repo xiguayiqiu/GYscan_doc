@@ -138,6 +138,7 @@ public class WindowsCommandDetailActivity extends AppCompatActivity {
         webSettings.setDefaultTextEncodingName("UTF-8");
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         
+        // 从SharedPreferences获取用户设置的主题，默认使用light主题
         String themeName = sharedPreferences.getString("theme", "light");
         String css = loadThemeCss(themeName);
         
@@ -161,8 +162,9 @@ public class WindowsCommandDetailActivity extends AppCompatActivity {
                 "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\">" +
                 "<style>" +
                 css +
-                "html, body { width: 100% !important; margin: 0 !important; padding: 0 !important; background-color: inherit; } " +
+                "html, body { width: 100% !important; margin: 0 !important; padding: 0 !important; background-color: inherit; color: inherit; } " +
                 "#write { width: 100% !important; margin: 0 !important; padding: 24px !important; box-sizing: border-box !important; } " +
+                "* { color: inherit !important; } " +
                 "</style>" +
                 "</head>" +
                 "<body>" +
@@ -172,12 +174,8 @@ public class WindowsCommandDetailActivity extends AppCompatActivity {
                 "</body>" +
                 "</html>";
         
-        // 根据主题设置WebView背景色
-        if (themeName.equals("dark") || themeName.equals("github-dark") || themeName.startsWith("bit-clean-dark") || themeName.contains("dark")) {
-            webView.setBackgroundColor(0xFF2D2D2D);
-        } else {
-            webView.setBackgroundColor(0xFFFFFFFF);
-        }
+        // 设置WebView背景色为白色
+        webView.setBackgroundColor(0xFFFFFFFF);
         
         webView.loadDataWithBaseURL(baseUrl, fullHtml, "text/html", "UTF-8", null);
     }
@@ -285,10 +283,6 @@ public class WindowsCommandDetailActivity extends AppCompatActivity {
             saveThemePreference("light");
             reloadContent();
             return true;
-        } else if (id == R.id.theme_dark) {
-            saveThemePreference("dark");
-            reloadContent();
-            return true;
         } else if (id == R.id.theme_github) {
             saveThemePreference("github");
             reloadContent();
@@ -301,24 +295,12 @@ public class WindowsCommandDetailActivity extends AppCompatActivity {
             saveThemePreference("bit-clean-light");
             reloadContent();
             return true;
-        } else if (id == R.id.theme_bit_clean_dark) {
-            saveThemePreference("bit-clean-dark");
-            reloadContent();
-            return true;
         } else if (id == R.id.theme_rose) {
             saveThemePreference("rose");
             reloadContent();
             return true;
         } else if (id == R.id.theme_phycat_light) {
             saveThemePreference("phycat/phycat/phycat.light");
-            reloadContent();
-            return true;
-        } else if (id == R.id.theme_phycat_dark) {
-            saveThemePreference("phycat/phycat/phycat.dark");
-            reloadContent();
-            return true;
-        } else if (id == R.id.theme_github_dark) {
-            saveThemePreference("github-dark");
             reloadContent();
             return true;
         }
