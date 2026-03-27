@@ -127,7 +127,7 @@ gyscan-doc/
 ## 联系我们
 
 - 项目主页：[https://github.com/xiguayiqiu/GYscan_doc](https://github.com/xiguayiqiu/GYscan_doc)
-- 开发者：[https://github.com/xiguayiqiu](弈秋忘忧白帽)
+- 开发者：[弈秋忘忧白帽](https://github.com/xiguayiqiu)
 
 ---
 
