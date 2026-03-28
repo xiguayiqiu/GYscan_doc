@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:overrideLibrary="love.yinlin.compose.components.lottie">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:allowBackup="true"

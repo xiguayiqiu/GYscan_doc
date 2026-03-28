@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -30,10 +29,12 @@ public class AboutActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(ContextCompat.getColor(this, R.color.theme_blue));
-            // 确保状态栏文字为白色（默认）
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                window.setStatusBarColor(getColor(R.color.theme_blue));
+                // 确保状态栏文字为白色（默认）
                 window.getDecorView().setSystemUiVisibility(0);
+            } else {
+                window.setStatusBarColor(getResources().getColor(R.color.theme_blue));
             }
         }
 
@@ -124,257 +125,58 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void setupSystemInfo() {
-        // 检测Android版本
-        checkAndroidVersion();
     }
 
     private void checkKernelVersion() {
         TextView kernelVersionTextView = findViewById(R.id.kernelVersion);
         if (kernelVersionTextView != null) {
-            String kernelVersion = System.getProperty("os.version");
-            kernelVersionTextView.setText(kernelVersion);
+            kernelVersionTextView.setText("未知");
         }
     }
 
     private void checkAbiType() {
         TextView abiTypeTextView = findViewById(R.id.abiType);
         if (abiTypeTextView != null) {
-            String abiType = android.os.Build.CPU_ABI;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                String[] abis = android.os.Build.SUPPORTED_ABIS;
-                if (abis != null && abis.length > 0) {
-                    StringBuilder abiBuilder = new StringBuilder();
-                    for (int i = 0; i < abis.length; i++) {
-                        abiBuilder.append(abis[i]);
-                        if (i < abis.length - 1) {
-                            abiBuilder.append(", ");
-                        }
-                    }
-                    abiType = abiBuilder.toString();
-                }
-            }
-            abiTypeTextView.setText(abiType);
+            abiTypeTextView.setText("未知");
         }
     }
 
     private void checkSelinuxStatus() {
         TextView selinuxStatusTextView = findViewById(R.id.selinuxStatus);
         if (selinuxStatusTextView != null) {
-            String selinuxStatus = "未知";
-            
-            // 尝试方法1：执行getenforce命令
-            try {
-                java.lang.Process process = Runtime.getRuntime().exec("getenforce");
-                java.io.BufferedReader reader = new java.io.BufferedReader(
-                        new java.io.InputStreamReader(process.getInputStream()));
-                selinuxStatus = reader.readLine();
-                reader.close();
-                process.waitFor();
-                
-                // 检查是否获取到了有效结果
-                if (selinuxStatus != null && !selinuxStatus.trim().isEmpty()) {
-                    selinuxStatusTextView.setText(selinuxStatus);
-                    return;
-                }
-            } catch (Exception e) {
-                // 方法1失败，继续尝试其他方法
-            }
-            
-            // 尝试方法2：读取系统文件 /sys/fs/selinux/enforce
-            try {
-                java.io.File file = new java.io.File("/sys/fs/selinux/enforce");
-                if (file.exists()) {
-                    java.io.BufferedReader reader = new java.io.BufferedReader(
-                            new java.io.FileReader(file));
-                    String enforce = reader.readLine();
-                    reader.close();
-                    if ("0".equals(enforce)) {
-                        selinuxStatus = "Permissive";
-                    } else if ("1".equals(enforce)) {
-                        selinuxStatus = "Enforcing";
-                    }
-                    selinuxStatusTextView.setText(selinuxStatus);
-                    return;
-                }
-            } catch (Exception e) {
-                // 方法2失败，继续尝试其他方法
-            }
-            
-            // 尝试方法3：读取系统文件 /proc/self/attr/current
-            try {
-                java.io.File file = new java.io.File("/proc/self/attr/current");
-                if (file.exists()) {
-                    java.io.BufferedReader reader = new java.io.BufferedReader(
-                            new java.io.FileReader(file));
-                    String context = reader.readLine();
-                    reader.close();
-                    if (context != null && !context.trim().isEmpty()) {
-                        selinuxStatus = "已启用";
-                        selinuxStatusTextView.setText(selinuxStatus);
-                        return;
-                    }
-                }
-            } catch (Exception e) {
-                // 方法3失败，继续尝试其他方法
-            }
-            
-            // 尝试方法4：检查SELinux目录是否存在
-            try {
-                java.io.File selinuxDir = new java.io.File("/sys/fs/selinux");
-                if (selinuxDir.exists() && selinuxDir.isDirectory()) {
-                    selinuxStatus = "已启用";
-                    selinuxStatusTextView.setText(selinuxStatus);
-                    return;
-                }
-            } catch (Exception e) {
-                // 方法4失败，保持默认值
-            }
-            
-            // 所有方法都失败，显示"未知"
-            selinuxStatusTextView.setText(selinuxStatus);
+            selinuxStatusTextView.setText("未知");
         }
-    }
-
-    private void checkAndroidVersion() {
-        // 获取当前Android版本
-        int currentVersion = android.os.Build.VERSION.SDK_INT;
-        String versionName = android.os.Build.VERSION.RELEASE;
-        String androidVersion = versionName + " (API " + currentVersion + ")";
-        
-        // 最低Android版本要求
-        int minVersion = 21; // Android 5.0
-        boolean isSufficient = currentVersion >= minVersion;
-        String versionStatus = isSufficient ? "满足最低要求" : "不满足最低要求";
-        
-        // 查找对应的TextView并设置文本
-        // 查找软件信息部分的LinearLayout
-        LinearLayout softwareInfoLayout = null;
-        ViewGroup rootView = (ViewGroup) findViewById(android.R.id.content);
-        if (rootView != null) {
-            softwareInfoLayout = findSoftwareInfoLayout(rootView);
-        }
-        
-        if (softwareInfoLayout != null) {
-            for (int i = 0; i < softwareInfoLayout.getChildCount(); i++) {
-                View child = softwareInfoLayout.getChildAt(i);
-                if (child instanceof LinearLayout) {
-                    LinearLayout row = (LinearLayout) child;
-                    if (row.getChildCount() == 2) {
-                        TextView label = (TextView) row.getChildAt(0);
-                        TextView value = (TextView) row.getChildAt(1);
-                        if (label != null && value != null) {
-                            if (label.getText().toString().contains("Android版本")) {
-                                value.setText(androidVersion);
-                            } else if (label.getText().toString().contains("系统要求")) {
-                                value.setText(versionStatus);
-                                if (isSufficient) {
-                                    value.setTextColor(getResources().getColor(R.color.green));
-                                } else {
-                                    value.setTextColor(getResources().getColor(R.color.red));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private LinearLayout findSoftwareInfoLayout(ViewGroup viewGroup) {
-        for (int i = 0; i < viewGroup.getChildCount(); i++) {
-            View child = viewGroup.getChildAt(i);
-            if (child instanceof LinearLayout) {
-                LinearLayout linearLayout = (LinearLayout) child;
-                // 检查是否包含软件标题
-                for (int j = 0; j < linearLayout.getChildCount(); j++) {
-                    View grandChild = linearLayout.getChildAt(j);
-                    if (grandChild instanceof TextView) {
-                        TextView textView = (TextView) grandChild;
-                        if (textView.getText().toString().contains("软件")) {
-                            // 找到软件信息部分，返回其下的LinearLayout
-                            for (int k = 0; k < linearLayout.getChildCount(); k++) {
-                                View greatGrandChild = linearLayout.getChildAt(k);
-                                if (greatGrandChild instanceof LinearLayout) {
-                                    return (LinearLayout) greatGrandChild;
-                                }
-                            }
-                        }
-                    }
-                }
-                // 递归查找
-                LinearLayout result = findSoftwareInfoLayout(linearLayout);
-                if (result != null) {
-                    return result;
-                }
-            } else if (child instanceof ViewGroup) {
-                // 递归查找
-                LinearLayout result = findSoftwareInfoLayout((ViewGroup) child);
-                if (result != null) {
-                    return result;
-                }
-            }
-        }
-        return null;
     }
 
     private void checkRootStatus() {
         TextView rootStatusTextView = findViewById(R.id.rootStatus);
         if (rootStatusTextView != null) {
-            boolean isRooted = isDeviceRooted();
-            if (isRooted) {
-                rootStatusTextView.setText("已Root");
-                rootStatusTextView.setTextColor(getResources().getColor(R.color.red));
-            } else {
-                rootStatusTextView.setText("未Root");
-                rootStatusTextView.setTextColor(getResources().getColor(R.color.green));
-            }
+            rootStatusTextView.setText("未知");
         }
     }
 
     private boolean isDeviceRooted() {
-        // 方法1：检查su可执行文件
-        String[] paths = {
-            "/system/bin/su",
-            "/system/xbin/su",
-            "/sbin/su",
-            "/system/su",
-            "/system/bin/.ext/su",
-            "/system/usr/sbin/su",
-            "/system/app/Superuser.apk"
-        };
-        
-        for (String path : paths) {
-            if (new java.io.File(path).exists()) {
-                return true;
-            }
-        }
-        
-        // 方法2：检查系统属性
-        try {
-            String buildTags = android.os.Build.TAGS;
-            if (buildTags != null && buildTags.contains("test-keys")) {
-                return true;
-            }
-        } catch (Exception e) {
-            // 忽略异常
-        }
-        
-        // 方法3：尝试执行su命令
-        try {
-            Process process = Runtime.getRuntime().exec("su");
-            process.destroy();
-            return true;
-        } catch (Exception e) {
-            // 忽略异常
-        }
-        
         return false;
     }
 
     private void openUrl(String url) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(url));
-        startActivity(intent);
+        try {
+            Uri uri = Uri.parse(url);
+            if (uri != null) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(uri);
+                // 确保有应用可以处理该Intent
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "无法打开链接", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "链接格式不正确", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "打开链接失败", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

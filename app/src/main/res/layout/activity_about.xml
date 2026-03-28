@@ -145,25 +145,6 @@
                             <TextView
                                 android:layout_width="120dp"
                                 android:layout_height="wrap_content"
-                                android:text="系统要求:" 
-                                android:textSize="16sp"
-                                android:textColor="@color/hint_text" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="检测中..."
-                                android:textSize="16sp"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="8dp">
-                            <TextView
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
                                 android:text="开发工具:" 
                                 android:textSize="16sp"
                                 android:textColor="@color/hint_text" />
